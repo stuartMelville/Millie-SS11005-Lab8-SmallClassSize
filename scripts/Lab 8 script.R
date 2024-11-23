@@ -33,14 +33,16 @@ glimpse(star)
 colnames(star)
 nrow(star)
 library(dplyr)
+class(star)
 star %>% 
   arrange(desc(star)) %>% 
-  slice(1:5)
+  slice(1:10)
 star %>% 
   arrange(star) %>% 
-  slice(1:5)
-top_n(star,-5,pupilID)
+  slice(2:10)
 
+top_n(star,-5,race)
+top_n(star,-5,pupilID)
 
 #### Question 1
 
@@ -50,14 +52,35 @@ top_n(star,-5,pupilID)
 # Create a new dataframe that contains just these two groups.
 # The new dataframe should be called star_2
 
-# create new df uding tidyverse code, excluding the 3rd group
+# create new df using tidyverse code, excluding the 3rd group
+class(star)
+top_n(star,-5,pupilID)
+
 star_2 <- star %>%
   filter(classtype != 3)
 
+star_3 <- star %>%
+  filter(classtype == 3)
+
+star_4 <- star %>%
+  filter(classtype == 1)
+
+star_5 <- star %>%
+  filter(classtype == 2)
+
+number2s <- nrow(star) - nrow(star_3) - nrow(star_4)
+
+
+
 # check it
 glimpse(star_2)
+glimpse(star_2)
 
+table(star$classtype)
 table(star_2$classtype)
+table(star_3$classtype)
+table(star_4$classtype)
+table(star_5$classtype)
 
 
 #### Question 2
@@ -69,7 +92,17 @@ table(star_2$classtype)
 # Remove any pupils who are in the regular category and have been in a small class.
 
 # check the number of years in small classes for each group
+top_n(star,-20,pupilID)
+top_n(star_2,-20,pupilID)
+
+help(table)
+table(star_2)
+table(star$yearssmall, star$classtype)
+table(star_2$classtype, star_2$yearssmall)
+
+
 table(star_2$yearssmall, star_2$classtype)
+
 
 # make any cases where yearssmall is more than 0 and classtype_fac is regular = NA
 # if both conditions are not TRUE, return the original classtype_fac variable
